@@ -20,6 +20,6 @@
         "dist",
         "prisma.config.ts",
         "prisma.config.js",
-        "tests"
+        "test"
     ]
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CropFresh Notification Service
 
 SMS, push notifications, and multi-language template management for CropFresh platform.
@@ -56,3 +57,6 @@ npm run dev
 ## License
 
 ISC
+=======
+# cropfresh-service-notification
+>>>>>>> 998d97c3754a562ed80f2a0dedef27abe2d9137e
