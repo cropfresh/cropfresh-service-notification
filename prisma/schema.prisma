@@ -1,0 +1,130 @@
+// Prisma schema for Notification Service
+// https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client"
+    output   = "../src/generated/prisma"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+// ============================================================================
+// Notification Models
+// ============================================================================
+
+/// Notification record for tracking sent notifications
+model Notification {
+    id             Int                 @id @default(autoincrement())
+    notificationId String              @unique @map("notification_id") @db.VarChar(36)
+    channel        NotificationChannel
+    status         NotificationStatus  @default(PENDING)
+
+    // Recipient
+    userId      String? @map("user_id") @db.VarChar(36)
+    phoneNumber String? @map("phone_number") @db.VarChar(20)
+
+    // Content
+    templateType TemplateType? @map("template_type")
+    language     Language      @default(ENGLISH)
+    subject      String?       @db.VarChar(255)
+    body         String        @db.Text
+
+    // Provider tracking
+    providerMessageId String? @map("provider_message_id") @db.VarChar(100)
+    errorMessage      String? @map("error_message") @db.Text
+
+    // Reference (e.g., listing_id, order_id)
+    referenceId   String? @map("reference_id") @db.VarChar(36)
+    referenceType String? @map("reference_type") @db.VarChar(50)
+
+    // Timestamps
+    sentAt      DateTime? @map("sent_at")
+    deliveredAt DateTime? @map("delivered_at")
+    createdAt   DateTime  @default(now()) @map("created_at")
+    updatedAt   DateTime  @updatedAt @map("updated_at")
+
+    @@index([userId])
+    @@index([phoneNumber])
+    @@index([status])
+    @@index([referenceId, referenceType])
+    @@map("notifications")
+}
+
+/// Notification templates for multi-language support
+model NotificationTemplate {
+    id           Int                 @id @default(autoincrement())
+    templateType TemplateType        @map("template_type")
+    language     Language
+    channel      NotificationChannel
+
+    // Template content with placeholders like {{farmer_name}}, {{drop_point_name}}
+    subject String? @db.VarChar(255)
+    body    String  @db.Text
+
+    // Metadata
+    isActive  Boolean  @default(true) @map("is_active")
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@unique([templateType, language, channel])
+    @@map("notification_templates")
+}
+
+/// User notification preferences
+model NotificationPreference {
+    id     Int    @id @default(autoincrement())
+    userId String @unique @map("user_id") @db.VarChar(36)
+
+    // Channel preferences
+    smsEnabled   Boolean @default(true) @map("sms_enabled")
+    pushEnabled  Boolean @default(true) @map("push_enabled")
+    emailEnabled Boolean @default(false) @map("email_enabled")
+
+    // Language preference
+    language Language @default(ENGLISH)
+
+    // Quiet hours (optional)
+    quietStart String? @map("quiet_start") @db.VarChar(5) // HH:mm
+    quietEnd   String? @map("quiet_end") @db.VarChar(5) // HH:mm
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("notification_preferences")
+}
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+enum NotificationChannel {
+    SMS
+    PUSH
+    EMAIL
+}
+
+enum NotificationStatus {
+    PENDING
+    SENT
+    DELIVERED
+    FAILED
+}
+
+enum Language {
+    ENGLISH
+    KANNADA
+    HINDI
+    TAMIL
+    TELUGU
+}
+
+enum TemplateType {
+    DROP_POINT_ASSIGNMENT
+    DROP_POINT_CHANGE
+    ORDER_CONFIRMATION
+    DELIVERY_REMINDER
+    PAYMENT_RECEIVED
+    OTP
+}

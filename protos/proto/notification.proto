@@ -1,0 +1,179 @@
+syntax = "proto3";
+
+package cropfresh.notification;
+
+option go_package = "github.com/cropfresh/cropfresh-protos/gen/go/notification";
+
+// ============================================================================
+// Notification Service - SMS, Push, and Template Management
+// ============================================================================
+
+service NotificationService {
+  // Send an SMS notification
+  rpc SendSMS(SendSMSRequest) returns (SendSMSResponse);
+  
+  // Send a push notification
+  rpc SendPush(SendPushRequest) returns (SendPushResponse);
+  
+  // Send notification using template
+  rpc SendTemplatedNotification(SendTemplatedNotificationRequest) returns (SendTemplatedNotificationResponse);
+  
+  // Get delivery status of a notification
+  rpc GetDeliveryStatus(GetDeliveryStatusRequest) returns (GetDeliveryStatusResponse);
+  
+  // Batch send notifications
+  rpc SendBatchNotification(SendBatchNotificationRequest) returns (SendBatchNotificationResponse);
+}
+
+// ============================================================================
+// Enums
+// ============================================================================
+
+enum NotificationChannel {
+  NOTIFICATION_CHANNEL_UNSPECIFIED = 0;
+  NOTIFICATION_CHANNEL_SMS = 1;
+  NOTIFICATION_CHANNEL_PUSH = 2;
+  NOTIFICATION_CHANNEL_EMAIL = 3;
+}
+
+enum NotificationStatus {
+  NOTIFICATION_STATUS_UNSPECIFIED = 0;
+  NOTIFICATION_STATUS_PENDING = 1;
+  NOTIFICATION_STATUS_SENT = 2;
+  NOTIFICATION_STATUS_DELIVERED = 3;
+  NOTIFICATION_STATUS_FAILED = 4;
+}
+
+enum Language {
+  LANGUAGE_UNSPECIFIED = 0;
+  LANGUAGE_ENGLISH = 1;
+  LANGUAGE_KANNADA = 2;
+  LANGUAGE_HINDI = 3;
+  LANGUAGE_TAMIL = 4;
+  LANGUAGE_TELUGU = 5;
+}
+
+enum TemplateType {
+  TEMPLATE_TYPE_UNSPECIFIED = 0;
+  TEMPLATE_TYPE_DROP_POINT_ASSIGNMENT = 1;
+  TEMPLATE_TYPE_DROP_POINT_CHANGE = 2;
+  TEMPLATE_TYPE_ORDER_CONFIRMATION = 3;
+  TEMPLATE_TYPE_DELIVERY_REMINDER = 4;
+  TEMPLATE_TYPE_PAYMENT_RECEIVED = 5;
+  TEMPLATE_TYPE_OTP = 6;
+}
+
+// ============================================================================
+// SMS Messages
+// ============================================================================
+
+message SendSMSRequest {
+  string phone_number = 1;        // E.164 format: +919876543210
+  string message = 2;             // Message content
+  Language language = 3;          // Language for message
+  string reference_id = 4;        // External reference (order_id, listing_id)
+  string reference_type = 5;      // Type: "order", "listing", "drop_point"
+}
+
+message SendSMSResponse {
+  string notification_id = 1;     // Unique ID for tracking
+  NotificationStatus status = 2;  // Current status
+  string provider_message_id = 3; // Twilio/SNS message ID
+  string error_message = 4;       // Error details if failed
+}
+
+// ============================================================================
+// Push Notification Messages
+// ============================================================================
+
+message SendPushRequest {
+  string user_id = 1;             // Target user ID
+  string title = 2;               // Notification title
+  string body = 3;                // Notification body
+  Language language = 4;          // Language
+  map<string, string> data = 5;   // Custom data payload
+  string deep_link = 6;           // App deep link URI
+  string reference_id = 7;        // External reference
+  string reference_type = 8;      // Reference type
+}
+
+message SendPushResponse {
+  string notification_id = 1;
+  NotificationStatus status = 2;
+  string provider_message_id = 3;
+  string error_message = 4;
+}
+
+// ============================================================================
+// Templated Notification Messages
+// ============================================================================
+
+message SendTemplatedNotificationRequest {
+  string user_id = 1;                      // Target user
+  string phone_number = 2;                 // Phone for SMS
+  TemplateType template_type = 3;          // Template to use
+  Language language = 4;                   // Language preference
+  map<string, string> template_vars = 5;   // Template variables
+  repeated NotificationChannel channels = 6; // Channels to send on
+  string reference_id = 7;
+  string reference_type = 8;
+}
+
+message SendTemplatedNotificationResponse {
+  repeated NotificationResult results = 1;
+}
+
+message NotificationResult {
+  NotificationChannel channel = 1;
+  string notification_id = 2;
+  NotificationStatus status = 3;
+  string error_message = 4;
+}
+
+// ============================================================================
+// Delivery Status Messages
+// ============================================================================
+
+message GetDeliveryStatusRequest {
+  string notification_id = 1;
+}
+
+message GetDeliveryStatusResponse {
+  string notification_id = 1;
+  NotificationChannel channel = 2;
+  NotificationStatus status = 3;
+  string sent_at = 4;             // ISO 8601 timestamp
+  string delivered_at = 5;        // ISO 8601 timestamp (if delivered)
+  string error_message = 6;       // Error details if failed
+}
+
+// ============================================================================
+// Batch Notification Messages
+// ============================================================================
+
+message SendBatchNotificationRequest {
+  repeated BatchNotificationItem items = 1;
+}
+
+message BatchNotificationItem {
+  string user_id = 1;
+  string phone_number = 2;
+  TemplateType template_type = 3;
+  Language language = 4;
+  map<string, string> template_vars = 5;
+  repeated NotificationChannel channels = 6;
+  string reference_id = 7;
+  string reference_type = 8;
+}
+
+message SendBatchNotificationResponse {
+  int32 total = 1;
+  int32 successful = 2;
+  int32 failed = 3;
+  repeated BatchNotificationResult results = 4;
+}
+
+message BatchNotificationResult {
+  string user_id = 1;
+  repeated NotificationResult channel_results = 2;
+}
