@@ -386,7 +386,11 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   Notification: 'Notification',
   NotificationTemplate: 'NotificationTemplate',
-  NotificationPreference: 'NotificationPreference'
+  NotificationPreference: 'NotificationPreference',
+  FarmerNotification: 'FarmerNotification',
+  FarmerNotificationPreferences: 'FarmerNotificationPreferences',
+  SmsDeliveryLog: 'SmsDeliveryLog',
+  DeviceToken: 'DeviceToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "notification" | "notificationTemplate" | "notificationPreference"
+    modelProps: "notification" | "notificationTemplate" | "notificationPreference" | "farmerNotification" | "farmerNotificationPreferences" | "smsDeliveryLog" | "deviceToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +632,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FarmerNotification: {
+      payload: Prisma.$FarmerNotificationPayload<ExtArgs>
+      fields: Prisma.FarmerNotificationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FarmerNotificationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FarmerNotificationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>
+        }
+        findFirst: {
+          args: Prisma.FarmerNotificationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FarmerNotificationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>
+        }
+        findMany: {
+          args: Prisma.FarmerNotificationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>[]
+        }
+        create: {
+          args: Prisma.FarmerNotificationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>
+        }
+        createMany: {
+          args: Prisma.FarmerNotificationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FarmerNotificationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>[]
+        }
+        delete: {
+          args: Prisma.FarmerNotificationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>
+        }
+        update: {
+          args: Prisma.FarmerNotificationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>
+        }
+        deleteMany: {
+          args: Prisma.FarmerNotificationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FarmerNotificationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FarmerNotificationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>[]
+        }
+        upsert: {
+          args: Prisma.FarmerNotificationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPayload>
+        }
+        aggregate: {
+          args: Prisma.FarmerNotificationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFarmerNotification>
+        }
+        groupBy: {
+          args: Prisma.FarmerNotificationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FarmerNotificationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FarmerNotificationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FarmerNotificationCountAggregateOutputType> | number
+        }
+      }
+    }
+    FarmerNotificationPreferences: {
+      payload: Prisma.$FarmerNotificationPreferencesPayload<ExtArgs>
+      fields: Prisma.FarmerNotificationPreferencesFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FarmerNotificationPreferencesFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FarmerNotificationPreferencesFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>
+        }
+        findFirst: {
+          args: Prisma.FarmerNotificationPreferencesFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FarmerNotificationPreferencesFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>
+        }
+        findMany: {
+          args: Prisma.FarmerNotificationPreferencesFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>[]
+        }
+        create: {
+          args: Prisma.FarmerNotificationPreferencesCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>
+        }
+        createMany: {
+          args: Prisma.FarmerNotificationPreferencesCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FarmerNotificationPreferencesCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>[]
+        }
+        delete: {
+          args: Prisma.FarmerNotificationPreferencesDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>
+        }
+        update: {
+          args: Prisma.FarmerNotificationPreferencesUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>
+        }
+        deleteMany: {
+          args: Prisma.FarmerNotificationPreferencesDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FarmerNotificationPreferencesUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FarmerNotificationPreferencesUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>[]
+        }
+        upsert: {
+          args: Prisma.FarmerNotificationPreferencesUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FarmerNotificationPreferencesPayload>
+        }
+        aggregate: {
+          args: Prisma.FarmerNotificationPreferencesAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFarmerNotificationPreferences>
+        }
+        groupBy: {
+          args: Prisma.FarmerNotificationPreferencesGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FarmerNotificationPreferencesGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FarmerNotificationPreferencesCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FarmerNotificationPreferencesCountAggregateOutputType> | number
+        }
+      }
+    }
+    SmsDeliveryLog: {
+      payload: Prisma.$SmsDeliveryLogPayload<ExtArgs>
+      fields: Prisma.SmsDeliveryLogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SmsDeliveryLogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SmsDeliveryLogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>
+        }
+        findFirst: {
+          args: Prisma.SmsDeliveryLogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SmsDeliveryLogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>
+        }
+        findMany: {
+          args: Prisma.SmsDeliveryLogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>[]
+        }
+        create: {
+          args: Prisma.SmsDeliveryLogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>
+        }
+        createMany: {
+          args: Prisma.SmsDeliveryLogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SmsDeliveryLogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>[]
+        }
+        delete: {
+          args: Prisma.SmsDeliveryLogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>
+        }
+        update: {
+          args: Prisma.SmsDeliveryLogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>
+        }
+        deleteMany: {
+          args: Prisma.SmsDeliveryLogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SmsDeliveryLogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SmsDeliveryLogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>[]
+        }
+        upsert: {
+          args: Prisma.SmsDeliveryLogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SmsDeliveryLogPayload>
+        }
+        aggregate: {
+          args: Prisma.SmsDeliveryLogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSmsDeliveryLog>
+        }
+        groupBy: {
+          args: Prisma.SmsDeliveryLogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SmsDeliveryLogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SmsDeliveryLogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SmsDeliveryLogCountAggregateOutputType> | number
+        }
+      }
+    }
+    DeviceToken: {
+      payload: Prisma.$DeviceTokenPayload<ExtArgs>
+      fields: Prisma.DeviceTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DeviceTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DeviceTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.DeviceTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DeviceTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        findMany: {
+          args: Prisma.DeviceTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>[]
+        }
+        create: {
+          args: Prisma.DeviceTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        createMany: {
+          args: Prisma.DeviceTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DeviceTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.DeviceTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        update: {
+          args: Prisma.DeviceTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.DeviceTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DeviceTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DeviceTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.DeviceTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeviceTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.DeviceTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDeviceToken>
+        }
+        groupBy: {
+          args: Prisma.DeviceTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeviceTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DeviceTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeviceTokenCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -722,12 +1022,82 @@ export const NotificationPreferenceScalarFieldEnum = {
 export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
 
 
+export const FarmerNotificationScalarFieldEnum = {
+  id: 'id',
+  farmerId: 'farmerId',
+  type: 'type',
+  title: 'title',
+  body: 'body',
+  deeplink: 'deeplink',
+  metadata: 'metadata',
+  isRead: 'isRead',
+  createdAt: 'createdAt'
+} as const
+
+export type FarmerNotificationScalarFieldEnum = (typeof FarmerNotificationScalarFieldEnum)[keyof typeof FarmerNotificationScalarFieldEnum]
+
+
+export const FarmerNotificationPreferencesScalarFieldEnum = {
+  farmerId: 'farmerId',
+  smsEnabled: 'smsEnabled',
+  pushEnabled: 'pushEnabled',
+  quietHoursStart: 'quietHoursStart',
+  quietHoursEnd: 'quietHoursEnd',
+  quietHoursEnabled: 'quietHoursEnabled',
+  notificationLevel: 'notificationLevel',
+  orderUpdates: 'orderUpdates',
+  paymentAlerts: 'paymentAlerts',
+  educationalContent: 'educationalContent',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FarmerNotificationPreferencesScalarFieldEnum = (typeof FarmerNotificationPreferencesScalarFieldEnum)[keyof typeof FarmerNotificationPreferencesScalarFieldEnum]
+
+
+export const SmsDeliveryLogScalarFieldEnum = {
+  id: 'id',
+  farmerId: 'farmerId',
+  phoneNumber: 'phoneNumber',
+  messageId: 'messageId',
+  templateKey: 'templateKey',
+  status: 'status',
+  retryCount: 'retryCount',
+  sentAt: 'sentAt',
+  deliveredAt: 'deliveredAt',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt'
+} as const
+
+export type SmsDeliveryLogScalarFieldEnum = (typeof SmsDeliveryLogScalarFieldEnum)[keyof typeof SmsDeliveryLogScalarFieldEnum]
+
+
+export const DeviceTokenScalarFieldEnum = {
+  id: 'id',
+  farmerId: 'farmerId',
+  fcmToken: 'fcmToken',
+  deviceType: 'deviceType',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DeviceTokenScalarFieldEnum = (typeof DeviceTokenScalarFieldEnum)[keyof typeof DeviceTokenScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -744,6 +1114,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -858,6 +1237,34 @@ export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'NotificationLevel'
+ */
+export type EnumNotificationLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationLevel'>
+    
+
+
+/**
+ * Reference to a field of type 'NotificationLevel[]'
+ */
+export type ListEnumNotificationLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'NotificationLevel[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -952,6 +1359,10 @@ export type GlobalOmitConfig = {
   notification?: Prisma.NotificationOmit
   notificationTemplate?: Prisma.NotificationTemplateOmit
   notificationPreference?: Prisma.NotificationPreferenceOmit
+  farmerNotification?: Prisma.FarmerNotificationOmit
+  farmerNotificationPreferences?: Prisma.FarmerNotificationPreferencesOmit
+  smsDeliveryLog?: Prisma.SmsDeliveryLogOmit
+  deviceToken?: Prisma.DeviceTokenOmit
 }
 
 /* Types for Logging */

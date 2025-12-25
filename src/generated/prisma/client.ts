@@ -52,3 +52,23 @@ export type NotificationTemplate = Prisma.NotificationTemplateModel
  * User notification preferences
  */
 export type NotificationPreference = Prisma.NotificationPreferenceModel
+/**
+ * Model FarmerNotification
+ * Farmer in-app notification (AC: 3)
+ */
+export type FarmerNotification = Prisma.FarmerNotificationModel
+/**
+ * Model FarmerNotificationPreferences
+ * Extended preferences for Story 3.8 (AC: 4)
+ */
+export type FarmerNotificationPreferences = Prisma.FarmerNotificationPreferencesModel
+/**
+ * Model SmsDeliveryLog
+ * SMS delivery log for retry tracking (AC: 6)
+ */
+export type SmsDeliveryLog = Prisma.SmsDeliveryLogModel
+/**
+ * Model DeviceToken
+ * Device token for FCM push notifications (AC: 7)
+ */
+export type DeviceToken = Prisma.DeviceTokenModel

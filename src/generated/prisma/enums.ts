@@ -45,7 +45,25 @@ export const TemplateType = {
   ORDER_CONFIRMATION: 'ORDER_CONFIRMATION',
   DELIVERY_REMINDER: 'DELIVERY_REMINDER',
   PAYMENT_RECEIVED: 'PAYMENT_RECEIVED',
-  OTP: 'OTP'
+  OTP: 'OTP',
+  ORDER_MATCHED: 'ORDER_MATCHED',
+  MATCH_EXPIRING: 'MATCH_EXPIRING',
+  ORDER_CANCELLED: 'ORDER_CANCELLED',
+  QUALITY_DISPUTE: 'QUALITY_DISPUTE',
+  HAULER_EN_ROUTE: 'HAULER_EN_ROUTE',
+  PICKUP_COMPLETE: 'PICKUP_COMPLETE',
+  DELIVERED: 'DELIVERED',
+  MATCH_EXPIRED: 'MATCH_EXPIRED',
+  EDUCATIONAL_CONTENT: 'EDUCATIONAL_CONTENT'
 } as const
 
 export type TemplateType = (typeof TemplateType)[keyof typeof TemplateType]
+
+
+export const NotificationLevel = {
+  ALL: 'ALL',
+  CRITICAL: 'CRITICAL',
+  MUTE: 'MUTE'
+} as const
+
+export type NotificationLevel = (typeof NotificationLevel)[keyof typeof NotificationLevel]

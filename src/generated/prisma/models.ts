@@ -11,4 +11,8 @@
 export type * from './models/Notification'
 export type * from './models/NotificationTemplate'
 export type * from './models/NotificationPreference'
+export type * from './models/FarmerNotification'
+export type * from './models/FarmerNotificationPreferences'
+export type * from './models/SmsDeliveryLog'
+export type * from './models/DeviceToken'
 export type * from './commonInputTypes'

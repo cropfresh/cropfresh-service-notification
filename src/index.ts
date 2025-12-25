@@ -3,6 +3,7 @@ import './tracing';
 
 import { GrpcServer } from './grpc/server';
 import { notificationServiceHandlers } from './grpc/services/notification';
+import { farmerNotificationHandlers } from './grpc/services/farmer-notification';
 import path from 'path';
 import express from 'express';
 import { logger } from './utils/logger';
@@ -58,7 +59,13 @@ const SERVICE_NAME_GRPC = 'NotificationService';
         const proto = packageDef.cropfresh.notification as any;
         const serviceDef = proto[SERVICE_NAME_GRPC].service;
 
-        grpcServer.addService(serviceDef, notificationServiceHandlers(logger));
+        // Merge base notification handlers with Story 3.8 farmer notification handlers
+        const handlers = {
+            ...notificationServiceHandlers(logger),
+            ...farmerNotificationHandlers(logger),
+        };
+
+        grpcServer.addService(serviceDef, handlers);
 
         await grpcServer.start();
         logger.info(`gRPC server started on port ${GRPC_PORT}`);
@@ -66,3 +73,4 @@ const SERVICE_NAME_GRPC = 'NotificationService';
         logger.error(err, 'Failed to start gRPC server');
     }
 })();
+
